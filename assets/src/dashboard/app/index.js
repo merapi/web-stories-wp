@@ -28,13 +28,25 @@ import { ThemeProvider } from 'styled-components';
  * Internal dependencies
  */
 import theme, { GlobalStyle } from '../theme';
+import { Route, RouterProvider } from './router';
+import { MyStoriesView, TemplatesGalleryView, MyBookmarksView } from './views';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <h1>{__('Dashboard', 'web-stories')}</h1>
-      <p>{__('Coming soon', 'web-stories')}</p>
+      <RouterProvider>
+        <GlobalStyle />
+        <div>
+          <a href="#/">{__('My Stories', 'web-stories')}</a>
+          <a href="#/templates-gallery">
+            {__('Templates Gallery', 'web-stories')}
+          </a>
+          <a href="#/my-bookmarks">{__('My Bookmarks', 'web-stories')}</a>
+        </div>
+        <Route exact path="/" component={<MyStoriesView />} />
+        <Route path="/templates-gallery" component={<TemplatesGalleryView />} />
+        <Route path="/my-bookmarks" component={<MyBookmarksView />} />
+      </RouterProvider>
     </ThemeProvider>
   );
 }
