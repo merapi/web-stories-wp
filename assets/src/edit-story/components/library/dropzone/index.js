@@ -36,8 +36,11 @@ import { ReactComponent as UploadIcon } from './icons/upload.svg';
 const DropzoneComponent = styled.div`
   min-width: 100%;
   min-height: 100%;
+  height: 100%;
 `;
-const OverContent = styled.div``;
+const OverContent = styled.div`
+  height: 100%;
+`;
 
 const OverlayWrapper = styled.div`
   width: 100%;
