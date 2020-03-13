@@ -22,6 +22,7 @@ import WithMask from '../masks/output';
 import { getDefinitionForType } from '../elements';
 import { getBox } from '../units/dimensions';
 import WithLink from '../components/link/output';
+import Bounce from '../../dashboard/animations/bounce';
 
 function OutputElement({ element }) {
   const { id, opacity, type } = element;
@@ -33,32 +34,49 @@ function OutputElement({ element }) {
   const box = getBox(element, 100, 100);
   const { x, y, width, height, rotationAngle } = box;
 
+  // eslint-disable-next-line react/prop-types
+  const WithAnimation = ({ children }) => {
+    const styles = {
+      position: 'absolute',
+      left: `${x}%`,
+      top: `${y}%`,
+      width: `${width}%`,
+      height: `${height}%`,
+    };
+
+    if (element?.mask?.type === 'star') {
+      return <Bounce style={styles}>{children}</Bounce>;
+    }
+
+    return <div style={styles}>{children}</div>;
+  };
+
   return (
-    <WithMask
-      element={element}
-      box={box}
-      id={'el-' + id}
-      className="wrapper"
-      style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        width: `${width}%`,
-        height: `${height}%`,
-        transform: rotationAngle ? `rotate(${rotationAngle}deg)` : null,
-        opacity: opacity ? opacity / 100 : null,
-      }}
-    >
-      <WithLink
+    <WithAnimation>
+      <WithMask
         element={element}
+        box={box}
+        id={'el-' + id}
+        className="wrapper"
         style={{
           width: '100%',
           height: '100%',
-          display: 'block',
+          transform: rotationAngle ? `rotate(${rotationAngle}deg)` : null,
+          opacity: opacity ? opacity / 100 : null,
         }}
       >
-        <Output element={element} box={box} />
-      </WithLink>
-    </WithMask>
+        <WithLink
+          element={element}
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'block',
+          }}
+        >
+          <Output element={element} box={box} />
+        </WithLink>
+      </WithMask>
+    </WithAnimation>
   );
 }
 
