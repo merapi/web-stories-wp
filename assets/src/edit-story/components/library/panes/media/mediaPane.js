@@ -303,7 +303,11 @@ function MediaPane(props) {
                     />
                   ))}
               </Column>
-              {hasMore && <div ref={refContainerFooter}>{__('Loading', 'web-stories')}</div>}
+              {hasMore && (
+                <div ref={refContainerFooter}>
+                  {__('Loading', 'web-stories')}
+                </div>
+              )}
             </Container>
           )}
         </Inner>

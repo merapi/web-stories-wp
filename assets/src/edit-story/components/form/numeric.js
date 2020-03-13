@@ -73,7 +73,7 @@ function Numeric({
   ...rest
 }) {
   const placeholder = isMultiple ? __('multiple', 'web-stories') : '';
-  const [onEdit, setOnEdit] = useState(false);
+  const [focused, setFocus] = useState(false);
 
   return (
     <Container
@@ -88,7 +88,7 @@ function Numeric({
         prefix={prefix}
         suffix={suffix}
         label={label}
-        value={`${value}${!onEdit ? symbol : ''}`}
+        value={`${value}${!focused ? symbol : ''}`}
         aria-label={ariaLabel}
         disabled={disabled}
         {...rest}
@@ -100,9 +100,9 @@ function Numeric({
           if (onBlur) {
             onBlur();
           }
-          setOnEdit(false);
+          setFocus(false);
         }}
-        onFocus={() => setOnEdit(true)}
+        onFocus={() => setFocus(true)}
       />
       {suffix}
     </Container>

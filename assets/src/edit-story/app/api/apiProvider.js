@@ -107,7 +107,7 @@ function APIProvider({ children }) {
   const getMedia = useCallback(
     ({ mediaType, searchTerm, page }) => {
       let apiPath = media;
-      const perPage = 20;
+      const perPage = 100;
       apiPath = addQueryArgs(apiPath, { per_page: perPage, page });
 
       if (mediaType) {
@@ -125,7 +125,11 @@ function APIProvider({ children }) {
             ({
               id,
               guid: { rendered: src },
-              media_details: { width: oWidth, height: oHeight },
+              media_details: {
+                width: oWidth,
+                height: oHeight,
+                length_formatted: lengthFormatted,
+              },
               mime_type: mimeType,
               featured_media: posterId,
               featured_media_src: poster,
@@ -137,6 +141,7 @@ function APIProvider({ children }) {
               oWidth,
               oHeight,
               mimeType,
+              lengthFormatted,
             })
           );
 
